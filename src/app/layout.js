@@ -15,8 +15,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Content Broadcasting System",
-  description: "A system for broadcasting educational content",
+  title: "ScholarCast | Institutional Command Center",
+  description: "A secure, high-performance content broadcasting system for modern educational environments.",
+  icons: {
+    icon: '/icon.png',
+  },
 };
 
 export default function RootLayout({ children }) {
