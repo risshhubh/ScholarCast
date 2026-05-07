@@ -1,36 +1,160 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🐾 ScholarCast | Institutional Command Center
 
-## Getting Started
+ScholarCast is a high-performance, secure content broadcasting system designed for modern educational environments. It synchronizes institutional knowledge through a multi-tier approval workflow, ensuring that only verified academic content reaches the public live portal.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 📂 Folder Structure
+
+```text
+📁 ScholarCast
+├── 📁 public           # Static assets (logos, images, diagrams)
+│   └── 📁 docs         # System diagrams and documentation images
+├── 📁 src
+│   ├── 📁 app          # Next.js App Router (Pages, Layouts, APIs)
+│   │   ├── 📁 api      # Server-side API endpoints
+│   │   ├── 📁 live     # Public Live Environment subroutes
+│   │   ├── 📁 principal# Principal moderation tools
+│   │   └── 📁 teacher  # Educator content management
+│   ├── 📁 components   # Shared UI & Layout components
+│   ├── 📁 context      # Global state (Authentication, etc.)
+│   ├── 📁 hooks        # Custom data fetching hooks
+│   ├── 📁 lib          # Core utilities & configurations
+│   ├── 📁 models       # MongoDB data schemas
+│   └── 📁 services     # Business logic & API integration layer
+├── 📄 middleware.js    # Server-side access control (Edge)
+├── 📄 components.json  # Shadcn UI configuration
+└── 📄 tailwind.config.js
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 📊 System Workflow
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The following flowchart illustrates the user journey and content lifecycle within the ScholarCast ecosystem.
 
-## Learn More
+![System Workflow](./public/docs/workflow.png)
 
-To learn more about Next.js, take a look at the following resources:
+```mermaid
+graph TD
+    %% User Roles
+    T["👨‍🏫 Teacher (Creator)"] 
+    P["🎓 Principal (Moderator)"]
+    S["📖 Student (Public Viewer)"]
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    %% Teacher Flow
+    T -->|Signup/Login| TD[Teacher Dashboard]
+    TD -->|Upload Lesson| UC[Upload Content]
+    UC -->|Submit| PP[Pending Approval Pool]
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    %% Principal Flow
+    P -->|Signup/Login| PD[Principal Dashboard]
+    PD -->|Review| PP
+    PP -->|Approve| AC[Approved Content]
+    PP -->|Reject| RJ[Returned for Revision]
 
-## Deploy on Vercel
+    %% Public Flow
+    AC -->|Auto-Broadcast| LP[Live Portal]
+    S -->|Public Access| LP
+    S -->|No Login Required| LP
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    %% Styling
+    style T fill:#0A1929,stroke:#00A3FF,color:#fff
+    style P fill:#0A1929,stroke:#00A3FF,color:#fff
+    style S fill:#0A1929,stroke:#00A3FF,color:#fff
+    style AC fill:#22C55E,stroke:#052E16,color:#fff
+    style RJ fill:#EF4444,stroke:#450A0A,color:#fff
+    style LP fill:#00A3FF,stroke:#0A1929,color:#fff
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🏗️ Architectural Flow
+
+ScholarCast leverages a modern full-stack architecture with a focus on security, performance, and real-time synchronization.
+
+![Architectural Flow](./public/docs/architecture.png)
+
+```mermaid
+graph LR
+    subgraph Client ["Frontend (Next.js)"]
+        UI[User Interface]
+        AC[Auth Context]
+        QC[Query Client]
+    end
+
+    subgraph Security ["Edge Security"]
+        MW[Next.js Middleware]
+        CK[Auth Cookies]
+    end
+
+    subgraph Server ["Backend (Node.js/Next API)"]
+        API[API Endpoints]
+        MDB[(MongoDB)]
+    end
+
+    UI -->|Navigate| MW
+    MW -->|Verify Cookie| CK
+    CK -->|Authorized| UI
+    CK -->|Unauthorized| UI
+    
+    UI -->|Request| API
+    API -->|Mongoose| MDB
+    MDB -->|Response| API
+    API -->|JSON| UI
+```
+
+---
+
+## 🚀 Key Features
+
+- **Multi-Tier Authorization**: Distinct dashboards for Teachers (Content Creators) and Principals (Content Moderators).
+- **Curriculum Lifecycle Management**: Structured flow from content upload to administrative review and final broadcast.
+- **Student-First Live Portal**: Publicly accessible gateway for students to witness curriculum in real-time without friction (no login required).
+- **Brutalist Design System**: A high-contrast, premium aesthetic optimized for institutional authority and cross-device responsiveness.
+- **Server-Side Security**: Middleware-level route protection ensures that functional tools remain private while public resources are easily accessible.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend**: [Next.js 15+](https://nextjs.org/) (App Router)
+- **Styling**: [Tailwind CSS 4.0](https://tailwindcss.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Database**: [MongoDB](https://www.mongodb.com/) with [Mongoose](https://mongoosejs.com/)
+- **Data Fetching**: [TanStack Query v5](https://tanstack.com/query/latest)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **UI Components**: [Shadcn UI](https://ui.shadcn.com/)
+
+---
+
+## 📦 Getting Started
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/risshhubh/ScholarCast.git
+```
+
+### 2. Install dependencies
+```bash
+npm install
+```
+
+### 3. Environment Setup
+Create a `.env` file in the root directory:
+```env
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+```
+
+### 4. Run Development Server
+```bash
+npm run dev
+```
+
+---
+
+## 🛡️ Governance & Standards
+ScholarCast adheres to the highest standards of institutional integrity. Every broadcast is logged, every user is verified, and the curriculum is protected by state-of-the-art security protocols.
+
+© 2026 ScholarCast Institutional. All Signal Rights Reserved.

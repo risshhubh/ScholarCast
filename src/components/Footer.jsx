@@ -17,7 +17,7 @@ export default function Footer() {
       <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
         <Radio className="h-64 w-64 text-pal-beige animate-pulse" />
       </div>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
           <div className="lg:col-span-1">
@@ -27,7 +27,7 @@ export default function Footer() {
               </div>
               <div className="flex flex-col">
                 <span className="font-black text-2xl tracking-tighter text-pal-beige uppercase">
-                    Scholar<span className="text-pal-blue">Cast</span>
+                  Scholar<span className="text-pal-blue">Cast</span>
                 </span>
                 <span className="text-[6px] font-black text-pal-teal uppercase tracking-[0.5em]">Global Educational Mesh</span>
               </div>
@@ -41,9 +41,9 @@ export default function Footer() {
                 { icon: Layers, href: "#" },
                 { icon: Share2, href: "#" }
               ].map((social, i) => (
-                <a 
-                  key={i} 
-                  href={social.href} 
+                <a
+                  key={i}
+                  href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="h-12 w-12 rounded-2xl bg-white/5 border-2 border-pal-beige/10 flex items-center justify-center text-pal-teal hover:text-pal-blue hover:border-pal-blue transition-all brutalist-shadow-sm hover:brutalist-shadow active:translate-x-1 active:translate-y-1"
@@ -53,11 +53,11 @@ export default function Footer() {
               ))}
             </div>
           </div>
-          
+
           <div>
             <h3 className="text-[10px] font-black text-pal-beige uppercase tracking-[0.3em] mb-8 flex items-center gap-2">
-                <LayoutDashboard className="h-4 w-4 text-pal-blue" />
-                Platform Access
+              <LayoutDashboard className="h-4 w-4 text-pal-blue" />
+              Platform Access
             </h3>
             <ul className="space-y-4">
               <li><Link href="/live" className="text-pal-teal hover:text-pal-beige text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 group"><div className="w-1.5 h-1.5 rounded-full bg-pal-blue group-hover:scale-150 transition-transform" />Live Portal</Link></li>
@@ -66,11 +66,11 @@ export default function Footer() {
               <li><Link href="/signup" className="text-pal-teal hover:text-pal-beige text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 group"><div className="w-1.5 h-1.5 rounded-full bg-pal-blue group-hover:scale-150 transition-transform" />Register New Node</Link></li>
             </ul>
           </div>
-          
+
           <div>
             <h3 className="text-[10px] font-black text-pal-beige uppercase tracking-[0.3em] mb-8 flex items-center gap-2">
-                <Radio className="h-4 w-4 text-pal-blue" />
-                Connectivity
+              <Radio className="h-4 w-4 text-pal-blue" />
+              Connectivity
             </h3>
             <ul className="space-y-4">
               <li><Link href="/support" className="text-pal-teal hover:text-pal-beige text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 group"><div className="w-1.5 h-1.5 rounded-full bg-pal-blue group-hover:scale-150 transition-transform" />Support Uplink</Link></li>
@@ -79,11 +79,11 @@ export default function Footer() {
               <li><Link href="mailto:contact@scholarcast.edu" className="text-pal-teal hover:text-pal-beige text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 group"><div className="w-1.5 h-1.5 rounded-full bg-pal-blue group-hover:scale-150 transition-transform" />Contact HQ</Link></li>
             </ul>
           </div>
-          
+
           <div>
             <h3 className="text-[10px] font-black text-pal-beige uppercase tracking-[0.3em] mb-8 flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4 text-pal-blue" />
-                Compliance
+              <ShieldCheck className="h-4 w-4 text-pal-blue" />
+              Compliance
             </h3>
             <ul className="space-y-4">
               <li><Link href="/privacy" className="text-pal-teal hover:text-pal-beige text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 group"><div className="w-1.5 h-1.5 rounded-full bg-pal-blue group-hover:scale-150 transition-transform" />Privacy Protocol</Link></li>
@@ -93,25 +93,25 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        
+
         <div className="pt-12 border-t-2 border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex flex-col md:items-start items-center gap-2">
             <p className="text-pal-teal/40 text-[9px] font-black uppercase tracking-[0.2em]">
-                © {new Date().getFullYear()} ScholarCast Institutional. All Signal Rights Reserved.
+              © {new Date().getFullYear()} ScholarCast Institutional. All Signal Rights Reserved.
             </p>
             <p className="text-pal-teal/20 text-[7px] font-black uppercase tracking-[0.4em]">
-                Verified Node: {nodeId || "SYNCING..."} // LATENCY: 12ms
+              Verified Node: {nodeId || "SYNCING..."} // LATENCY: 12ms
             </p>
           </div>
-          
+
           <div className="px-6 py-3 bg-white/5 border-2 border-white/10 rounded-2xl flex items-center gap-4">
             <p className="text-pal-beige text-[9px] font-black uppercase tracking-widest flex items-center gap-2">
-                Engineered with <Heart className="h-3 w-3 text-red-500 fill-current animate-pulse" /> for Education
+              Engineered with <Heart className="h-3 w-3 text-red-500 fill-current animate-pulse" /> for Education
             </p>
             <div className="w-px h-4 bg-white/10" />
             <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)]" />
-                <span className="text-[7px] font-black text-pal-teal uppercase tracking-widest">Global Ops Online</span>
+              <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)]" />
+              <span className="text-[7px] font-black text-pal-teal uppercase tracking-widest">Global Ops Online</span>
             </div>
           </div>
         </div>

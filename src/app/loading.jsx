@@ -15,7 +15,7 @@ export default function RootLoading() {
         <h2 className="text-xl font-black text-pal-navy uppercase tracking-tighter">Synchronizing Node</h2>
         <p className="text-[10px] font-bold text-pal-teal uppercase tracking-[0.3em] mt-2 animate-pulse">Establishing Signal Protocol...</p>
       </div>
-      
+
       {/* Brutalist loading bar using standard animate-pulse for safety */}
       <div className="mt-12 w-64 h-4 bg-pal-navy/5 border-2 border-pal-navy rounded-full overflow-hidden p-1">
         <div className="h-full bg-pal-blue rounded-full animate-[pulse_1.5s_infinite]" style={{ width: '40%' }} />

@@ -9,6 +9,8 @@ export const authService = {
       const user = response.data;
       if (typeof window !== 'undefined') {
         localStorage.setItem('user', JSON.stringify(user));
+        // Set a cookie for middleware to access
+        document.cookie = `user=${encodeURIComponent(JSON.stringify(user))}; path=/; max-age=86400; SameSite=Lax`;
       }
       return user;
     } catch (error) {
@@ -28,6 +30,8 @@ export const authService = {
   logout: async () => {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('user');
+      // Remove the cookie
+      document.cookie = 'user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
     }
   },
 
