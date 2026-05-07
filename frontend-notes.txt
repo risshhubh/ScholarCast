@@ -1,0 +1,45 @@
+AuraCast Academic Suite - Frontend Documentation
+===============================================
+
+1. Project Structure
+--------------------
+The application follows a modular, feature-based architecture designed for scalability and separation of concerns:
+- /src/app: Next.js App Router routes and page-level layouts.
+- /src/components: Reusable UI components (shadcn/ui based) and business-specific components.
+- /src/services: Dedicated service layer for API communication (Axios).
+- /src/hooks: Custom React hooks (TanStack Query) for data fetching and state management.
+- /src/context: Global application state (Authentication).
+- /src/lib: Core utilities and database connection logic (MongoDB/Mongoose).
+- /src/models: Mongoose schemas for User and Content entities.
+
+2. Authentication Flow
+----------------------
+- Unified Access Portal: A high-efficiency, tab-based portal for both Teachers and Principals.
+- Secure Storage: Authentication is handled via a dedicated /api/auth route.
+- Session Management: User sessions are stored in LocalStorage and managed via AuthContext.
+- Password Security: Passwords are hashed using bcryptjs on the server-side (API routes).
+
+3. Role-Based Routing
+---------------------
+- Dynamic Layout Checks: Layouts for /teacher and /principal perform role validation.
+- Unauthorized Redirection: Users attempting to access a dashboard without the correct role are automatically redirected to the login portal.
+- Navigational Integrity: The navbar dynamically adjusts links based on the authenticated user's role.
+
+4. API Integration Approach
+---------------------------
+- Service Layer: All HTTP calls are abstracted into `auth.service.js` and `content.service.js`.
+- State Management: Uses TanStack Query (React Query) for caching, polling, and background synchronization.
+- Decoupled Design: The service layer can be easily swapped for a different backend by updating the Axios base configuration.
+
+5. State Management Approach
+----------------------------
+- Global State: AuthContext handles the authenticated user's identity.
+- Server State: React Query manages the content pipeline, approval pool, and live broadcast data.
+- UI State: Standard React useState/useMemo for local filtering, search, and tab switching.
+
+6. Assumptions & Implementation Details
+---------------------------------------
+- Brutalist Design: Adopted a high-contrast, professional "Neo-Brutalist" aesthetic to distinguish AuraCast from generic educational platforms.
+- Live Polling: The Student Live page (/live/:teacherId) uses a 10s polling interval to ensure active content is always fresh.
+- Time-Based Filtering: Content is considered "Live" only if the current server/client time falls within the scheduled Start and End times.
+- Real Data: The app is fully integrated with MongoDB Atlas for persistent storage of all users and curriculum content.
