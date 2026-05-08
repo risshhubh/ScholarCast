@@ -11,6 +11,7 @@ import { Loader2, UserPlus, Building, ArrowLeft, ArrowRight, Eye, EyeOff } from 
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/context/AuthContext";
+import LoginTransition from "@/components/LoginTransition";
 
 export default function UnifiedSignup() {
   const { login } = useAuth();
@@ -24,6 +25,8 @@ export default function UnifiedSignup() {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
+  const [signedUpUser, setSignedUpUser] = useState(null);
   const router = useRouter();
 
   const handleSignup = async (e) => {
@@ -35,18 +38,30 @@ export default function UnifiedSignup() {
         role: activeTab
       });
       // Auto-login after signup
-      await login(formData.username, formData.password);
-      toast.success("Welcome to ScholarCast!");
-      router.push("/");
+      const user = await login(formData.username, formData.password);
+      setSignedUpUser(user);
+      setIsRedirecting(true);
+
+      // Artificial delay for transition effect
+      setTimeout(() => {
+        toast.success("Welcome to ScholarCast!");
+        router.push("/");
+      }, 2500);
     } catch (error) {
       toast.error(error.message || "Signup failed");
-    } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
+    <>
+      <AnimatePresence>
+        {isRedirecting && (
+          <LoginTransition user={signedUpUser} role={activeTab} />
+        )}
+      </AnimatePresence>
+
+      <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
       <Link href="/" className="absolute top-8 left-8 text-pal-teal hover:text-pal-navy flex items-center gap-2 transition-colors z-10 font-bold uppercase tracking-widest text-xs">
         <ArrowLeft className="h-4 w-4" /> Back to Home
       </Link>

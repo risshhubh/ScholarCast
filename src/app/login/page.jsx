@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { Loader2, GraduationCap, ShieldCheck, ArrowLeft, ArrowRight, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import LoginTransition from "@/components/LoginTransition";
 
 export default function UnifiedLogin() {
   const [activeTab, setActiveTab] = useState("teacher"); // "teacher" or "principal"
@@ -17,6 +18,8 @@ export default function UnifiedLogin() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState(null);
   const { login } = useAuth();
   const router = useRouter();
 
@@ -26,17 +29,30 @@ export default function UnifiedLogin() {
     try {
       const user = await login(username, password);
       if (user.role !== activeTab) throw new Error("Unauthorized role");
-      toast.success(`Welcome back, ${user.name}!`);
-      router.push(activeTab === "teacher" ? "/teacher" : "/principal");
+      
+      setLoggedInUser(user);
+      setIsRedirecting(true);
+      
+      // Artificial delay for the transition effect
+      setTimeout(() => {
+        toast.success(`Welcome back, ${user.name}!`);
+        router.push(activeTab === "teacher" ? "/teacher" : "/principal");
+      }, 2500);
     } catch (err) {
       toast.error(`Access Denied: Invalid ${activeTab} credentials`);
-    } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
+    <>
+      <AnimatePresence>
+        {isRedirecting && (
+          <LoginTransition user={loggedInUser} role={activeTab} />
+        )}
+      </AnimatePresence>
+
+      <div className="min-h-screen bg-background flex items-center justify-center p-4 relative overflow-hidden">
       <Link href="/" className="absolute top-8 left-8 text-pal-teal hover:text-pal-navy flex items-center gap-2 transition-colors z-10 font-bold uppercase tracking-widest text-xs">
         <ArrowLeft className="h-4 w-4" /> Back to Home
       </Link>
